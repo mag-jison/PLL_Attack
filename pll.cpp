@@ -3,6 +3,9 @@
 #include <conio.h>
 #include <Windows.h>
 #include <string>
+#include <algorithm>
+
+#include "Timer.h"
 
 using namespace std;
 
@@ -14,18 +17,19 @@ void hide_cursor(){
 }
 
 int main() {
-    string _prev = "";
-	int rm = rand() % 20;
-	vector<string> pll = {"A(a)", "A(b)", "T", "F", "V", "U(a)", "U(b)", "Z", "H", "J(a)", "J(b)", "N(a)", "N(b)", "E", "G(a)", "G(b)", "G(c)", "G(d)", "Y", "R(a)", "R(b)"};
+    Timer watch;
+	vector<string> pll = {"A(a)", "A(b)", "T", "F", "V", "U(b)", "Z", "H", "J(a)", "J(b)", "N(a)", "N(b)", "E", "G(a)", "G(b)", "G(c)", "G(d)", "Y", "R(a)", "R(b)"};
     hide_cursor();
 
-	do {
-		system("CLS");
-        while (_prev.compare(pll.at(rm)) == 0)
-            rm = rand() % 20;
-        cout << pll.at(rm) << endl;
-        _prev = pll.at(rm);
-	} while (_getch() == ' ');
+	cout << "Start";
+	while (_getch() == ' '){
+        system("CLS"); 
+        random_shuffle(pll.begin(), pll.end());
+        for (auto T : pll)
+            cout << T << " ";
+        watch.elapseTime();
+        _getch();
+    }
 
 	return 0;
 }
